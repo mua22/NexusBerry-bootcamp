@@ -1,0 +1,12 @@
+html
+    head
+        link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
+        link(rel="stylesheet", href="/styles.css")
+    body
+        h1 Home Page
+        p=msg
+        ul#products.new-products 
+            each product in products
+                li=product
+        - var name="Usman"
+        include footer

@@ -1,0 +1,15 @@
+h1 {
+  background-color: blue;
+  color: white;
+}
+#products li {
+  display: inline;
+}
+#menu li {
+  display: inline;
+  padding: 10px;
+}
+
+.new-products {
+  color: red;
+}
