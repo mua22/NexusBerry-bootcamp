@@ -1,21 +1,10 @@
 var express = require("express");
-var mongoose = require("mongoose");
 var router = express.Router();
-var Product = mongoose.model(
-  "Product",
-  mongoose.Schema({
-    name: String,
-    price: Number
-  })
-);
+
 var products = ["Pen", "Pencil", "Coke"];
 // get All Products
-router.get("/", async function(req, res, next) {
-  var items = await Product.find()
-    .select({ name: 1 })
-    .limit(3)
-    .sort({ name: 1 });
-  res.send(items);
+router.get("/", function(req, res, next) {
+  res.send(products);
 });
 // get Single Products
 router.get("/:id", function(req, res, next) {
@@ -31,12 +20,10 @@ router.delete("/:id", (req, res) => {
   res.send(products);
 });
 //create a product
-router.post("/", async (req, res) => {
-  var pro = new Product();
-  pro.name = req.body.name;
-  //pro.price = req.body.price;
-  await pro.save();
-  res.send(pro);
+router.post("/", (req, res) => {
+  console.log(req.body);
+  products.push(req.body.name);
+  res.send(products);
 });
 //patching
 router.patch("/:id", (req, res) => {
