@@ -1,0 +1,6 @@
+extends ../layout 
+
+block content
+    h1 All Products
+    each product in products
+        h3.product-name=product.name
