@@ -19,6 +19,22 @@ router.post("/products/store", async (req, res, next) => {
   await newProduct.save();
   res.redirect("/products");
 });
+router.get("/products/delete/:id", async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+  await product.remove();
+  res.redirect("/products");
+});
+router.get("/products/edit/:id", async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+  res.render("products/edit", { product });
+});
+router.post("/products/update/:id", async (req, res, next) => {
+  const product = await Product.findById(req.params.id);
+  product.name = req.body.name;
+  product.price = req.body.price;
+  await product.save();
+  res.redirect("/products");
+});
 router.get("/products/:id", async (req, res, next) => {
   const product = await Product.findById(req.params.id);
   console.log(product);
