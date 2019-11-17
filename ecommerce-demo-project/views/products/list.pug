@@ -1,6 +1,8 @@
 extends ../layout 
 
 block content
+    a.btn.btn-info(href="/products/create") Add New Product
     h1 All Products
     each product in products
-        h3.product-name=product.name
+        a(href="/products/"+product.id)   
+            h3.product-name=product.name
