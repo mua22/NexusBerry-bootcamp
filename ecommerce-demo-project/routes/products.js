@@ -1,11 +1,11 @@
 var express = require("express");
 const mongoose = require("mongoose");
 var router = express.Router();
-const productSchema = mongoose.Schema({
-  name: String,
-  price: String
-});
-const Product = mongoose.model("Product", productSchema);
+const {
+  Product,
+  validateProduct,
+  productSchema
+} = require("../models/ProductModel");
 router.get("/products", async (req, res, next) => {
   const products = await Product.find();
   res.render("products/list", { products });
