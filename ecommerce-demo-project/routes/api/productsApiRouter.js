@@ -30,10 +30,11 @@ router.delete("/:id", async (req, res) => {
 
 //create new product
 router.post("/", async (req, res) => {
+  let { error } = validateProduct(req.body);
+  if (error) return res.status(400).send(error.details[0].message);
   let product = new Product(req.body);
   await product.save();
-
-  return res.send(product);
+  res.send(product);
 });
 //update single product by id
 router.patch("/:id", async (req, res) => {
