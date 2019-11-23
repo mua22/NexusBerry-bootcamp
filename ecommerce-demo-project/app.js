@@ -21,10 +21,6 @@ process.on("unhandledRejection", ex => {
   throw ex;
 });
 winston.add(winston.transports.File, { filename: "logfile.log" });
-winston.add(winston.transports.MongoDB, {
-  db: config.get("db"),
-  level: "info"
-});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -57,7 +53,7 @@ app.use(function(err, req, res, next) {
   res.render("error");
 });
 mongoose
-  .connect("mongodb://localhost/ecommerce", {
+  .connect(config.get("db"), {
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
