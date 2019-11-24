@@ -26,6 +26,7 @@ const userSchema = new mongoose.Schema({
   isAdmin: { type: Boolean, default: false }
 });
 
+//add a method to user scheme so that we can access it like user.generateAuthToken
 userSchema.methods.generateAuthToken = function() {
   const token = jwt.sign(
     { _id: this._id, isAdmin: this.isAdmin },
@@ -52,7 +53,6 @@ function validateUser(user) {
       .max(255)
       .required()
   };
-
   return Joi.validate(user, schema);
 }
 

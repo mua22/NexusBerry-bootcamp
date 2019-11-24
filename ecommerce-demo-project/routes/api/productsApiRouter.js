@@ -1,5 +1,7 @@
 var express = require("express");
 const mongoose = require("mongoose");
+const auth = require("../../middleware/auth");
+const admin = require("../../middleware/admin");
 const {
   Product,
   validateProduct,
@@ -7,7 +9,7 @@ const {
 } = require("../../models/ProductModel");
 var router = express.Router();
 //get all products
-router.get("/", async (req, res) => {
+router.get("/", auth, admin, async (req, res) => {
   let products = await Product.find()
     .select({ name: 1 })
     .sort({ name: 1 });
