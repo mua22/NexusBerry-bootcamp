@@ -1,10 +1,9 @@
 const auth = require("../../middleware/auth");
-const jwt = require("jsonwebtoken");
-const config = require("config");
+
 const bcrypt = require("bcryptjs");
 const _ = require("lodash");
 const { User, validate } = require("../../models/user");
-const mongoose = require("mongoose");
+
 const express = require("express");
 const router = express.Router();
 const Joi = require("joi");
@@ -36,10 +35,8 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   const { error } = validateLoginRequest(req.body);
   if (error) return res.status(400).send(error.details[0].message);
-
   let user = await User.findOne({ email: req.body.email });
   if (!user) return res.status(400).send("Invalid email or password.");
-
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) return res.status(400).send("Invalid email or password.");
 
